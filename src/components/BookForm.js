@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { BookContext } from '../contexts/BookContext'
 
 const BookForm = () => {
-  const { addBook } = useContext(BookContext) 
+  const { dispatch } = useContext(BookContext) 
   const [bookData, setBookData] = useState({
     title:'',
     author:''
@@ -17,7 +17,11 @@ const BookForm = () => {
     const { title, author } = bookData
 
     event.preventDefault()
-    addBook(title, author)
+    dispatch({ type: 'ADD_BOOK', book: {
+      title: title,
+      author: author
+    }
+    })
     setBookData({    
       title:'',
       author:''

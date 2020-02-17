@@ -19,9 +19,9 @@ const ageReducer = (state, action) => {
  * these dispatch functions can be called into a component which will 
  * make a dispatch onto the reducer and thus updates the state
  */
-dispatchAge({ type: 'ADD_ONE' }) 
-dispatchAge({ type: 'ADD_FIVE' }) 
-dispatchAge({ type: 'ADD_NUM', num: 7 }) 
+dispatch({ type: 'ADD_ONE' }) 
+dispatch({ type: 'ADD_FIVE' }) 
+dispatch({ type: 'ADD_NUM', num: 7 }) 
 
 const AgeContextProvider = (props) => {
   const [age, dispatchAge] = useReducer(ageReducer, 20) // 20 is the default value for the age
@@ -33,7 +33,7 @@ const AgeContextProvider = (props) => {
   // instead of calling these functions we use dispatch
 
   return (
-    <AgeContext.Provider value={age, dispatchAge}> 
+    <AgeContext.Provider value={age, dispatch}> 
     {/* the dispatch is an action that we call onto the reducer
       * the benefit is that you pass in one function instead of multiple ones
       **/}
