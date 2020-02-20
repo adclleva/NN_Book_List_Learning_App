@@ -1,15 +1,19 @@
-import React, { createContext, useState, useReducer } from 'react'
+import React, { createContext, useEffect, useReducer } from 'react'
 import { bookReducer } from '../reducers/bookReducer'
 
 const BookContext = createContext();
 
 const BookContextProvider = (props) => {
-  const [books, dispatch] = useReducer(bookReducer, 
-    [
-      {title: 'name of the wind', author: 'patrick rothfuss', id: 1},
-      {title: 'the final empire', author: 'brandon sanderson', id: 2}
-    ])
-  
+  const [books, dispatch] = useReducer(bookReducer, [] ,
+    () => {
+      const localData = localStorage.getItem('books');
+      return localData ? JSON.parse(localData) : [];
+    }) // the third value in a reducer will be the default value
+
+  useEffect(() => {
+    localStorage.setItem('books', JSON.stringify(books)) // this line basically persists the data into local storage
+  }, [books])
+
   return(
     <BookContext.Provider value={{books, dispatch}}>
       {props.children}
